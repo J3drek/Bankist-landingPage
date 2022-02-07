@@ -119,7 +119,7 @@ const header = document.querySelector('.header');
 //Inserting and creating HTML elements
 const message = document.createElement('div');
 message.classList.add('cookie-message');
-// message.textContent = 'We use cookies for improved functionality and analytics';
+
 message.innerHTML =
   'We use cookies for improved functionality and analytics. <button class="btn btn--close--cookie">Got it!</button>';
 // header.prepend(message);
@@ -133,7 +133,7 @@ document
   .querySelector('.btn--close--cookie')
   .addEventListener('click', () => message.remove());
 
-// STICKY NAVIGATION (worst way to do it)
+// STICKY NAVIGATION (worse way to do it)
 // const initialCoords =  section1.getBoundingClientRect();
 // window.addEventListener('scroll', function(){
 //   if(window.scrollY > initialCoords.top)navigation.classList.add('sticky');
@@ -160,21 +160,24 @@ headerObserver.observe(header);
 //REVEALING ON SCROLLING
 const sections = document.querySelectorAll('.section');
 
-// const secObs = new IntersectionObserver(function(entries, observer){
-//   const [entry] = entries;
-//   if(!entry.isIntersecting) return;
+const secObs = new IntersectionObserver(
+  function (entries, observer) {
+    const [entry] = entries;
+    if (!entry.isIntersecting) return;
 
-//   entry.target.classList.remove('section--hidden');
-//   observer.unobserve(entry.target);
-// },{
-//   root: null,
-//   treshold: 0.15,
-// });
+    entry.target.classList.remove('section--hidden');
+    observer.unobserve(entry.target);
+  },
+  {
+    root: null,
+    treshold: 0.3,
+  }
+);
 
-// sections.forEach(function(section){
-//   section.classList.add('section--hidden');
-//   secObs.observe(section);
-// });
+sections.forEach(function (section) {
+  section.classList.add('section--hidden');
+  secObs.observe(section);
+});
 
 //LAZY LOADING IMAGES
 
